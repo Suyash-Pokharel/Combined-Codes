@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+@layer base {
+  /* LIGHT MODE (Default and ONLY mode) */
+  :root {
+    --primary: hsl(185, 81%, 30%);
+    --secondary: hsl(205, 70%, 50%);
+
+    --background: hsl(220, 25%, 97%);
+    --surface: hsl(0, 0%, 100%);
+    --surface-highlight: hsl(220, 20%, 95%);
+
+    --text-main: hsl(216, 28%, 18%);
+    --text-secondary: hsl(218, 15%, 45%);
+
+    --success: hsl(150, 60%, 40%);
+    --warning: hsl(45, 93%, 47%);
+    --error: hsl(0, 75%, 55%);
+
+    --border: hsl(220, 20%, 90%);
+    --border-focus: var(--primary);
+
+    /* Shadows */
+    --shadow-color: hsla(220, 30%, 85%, 0.5);
+  }
+
+  /* OVERRIDE BROWSER AUTOFILL STYLES */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--background) inset !important;
+    -webkit-text-fill-color: var(--text-main) !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* Apply defaults to body */
+  body {
+    @apply bg-background text-text-main antialiased transition-colors duration-300;
+  }
+}
+
+@theme {
+  /* Colors */
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-highlight: var(--surface-highlight);
+
+  --color-text-main: var(--text-main);
+  --color-text-secondary: var(--text-secondary);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+  --color-border: var(--border);
+  --color-border-focus: var(--border-focus);
+
+  /* Shadows */
+  --shadow-glow: 0 0 30px -5px var(--primary);
+}
+
+@layer components {
+  /* Error Message */
+  .inline-error {
+    @apply ml-2 text-xs font-bold text-error;
+    animation: fadeScaleIn 0.2s ease-out forwards;
+  }
+
+  /* Input Fields */
+  .input-base {
+    @apply w-full px-4 py-3 rounded-lg bg-background border text-text-main placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-surface-highlight;
+  }
+
+  .input-default {
+    @apply border-border focus:border-primary focus:ring-primary/50;
+  }
+
+  .input-error {
+    @apply border-error focus:border-error focus:ring-error/30;
+  }
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--text-secondary);
+    border-radius: 20px;
+    opacity: 0.5;
+  }
+
+  /* Animations */
+  @keyframes fadeScaleIn {
+    0% {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes popIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.9) translateY(5px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .animate-price {
+    animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes smoothFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .load-step-1 {
+    opacity: 0;
+    animation: smoothFadeIn 0.5s ease-out forwards;
+  }
+
+  .load-step-2 {
+    opacity: 0;
+    animation: smoothFadeIn 0.5s ease-out 0.2s forwards;
+  }
+
+  .load-step-3 {
+    opacity: 0;
+    animation: smoothFadeIn 0.5s ease-out 0.4s forwards;
+  }
+
+  .reveal-hidden {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1);
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
